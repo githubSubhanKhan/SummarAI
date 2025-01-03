@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ImageUpload from './ImageUpload';
 
 const Signup = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  }
   return (
     <div className="container d-flex justify-content-center align-items-center my-5">
       <div className="card" style={{ width: "18rem" }}>
@@ -25,7 +27,7 @@ const Signup = () => {
             <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
             <input type="password" className="form-control" id="confirmPassword" required/>
           </div>
-          <button type='submit' className="btn btn-primary">Create Account</button>
+          <button type='submit' onSubmit={handleSubmit} className="btn btn-primary">Create Account</button>
           </form>
         </div>
       </div>
