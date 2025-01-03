@@ -22,7 +22,9 @@ const Signup = () => {
             <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
             <input type="password" className="form-control" id="confirmPassword" required/>
           </div>
+          <div className="container d-flex justify-content-center align-items-center">
           <Link to="/login" className="btn btn-primary">Create Account</Link>
+          </div>
         </div>
       </div>
     </div>
