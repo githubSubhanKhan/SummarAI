@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Welcome = () => {
   return (
     <div>
-      <div className='container'>
+      <div className='container d-flex justify-content-center align-items-center my-5'>
         <h1>Welcome To CakeBook</h1>
         <Link to="/signup">
           <button className="btn btn-primary mx-5">Signup</button>
