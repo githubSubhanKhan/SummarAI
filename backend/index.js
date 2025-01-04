@@ -1,5 +1,6 @@
 const express = require('express');
 const connectToMongo = require('./config/db'); // Adjust path to your db.js file
+const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
@@ -9,6 +10,8 @@ connectToMongo();
 
 // Middleware to parse JSON
 app.use(express.json());
+
+app.use(cors());
 
 // Import routes
 const userRoutes = require('./routes/auth'); // Adjust path to your route file
