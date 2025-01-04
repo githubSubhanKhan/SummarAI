@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User'); // Adjust path to User model
+
 const router = express.Router();
 
 // POST route for registering a user
@@ -55,5 +56,7 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 
 module.exports = router;

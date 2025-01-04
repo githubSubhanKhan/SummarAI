@@ -13,6 +13,8 @@ app.use(express.json());
 // Import routes
 const userRoutes = require('./routes/auth'); // Adjust path to your route file
 app.use('/api/auth', userRoutes); // Prefix routes with '/api'
+const postRoutes = require('./routes/post')
+app.use('/api/post', postRoutes); // Prefix routes with '/api'
 
 // Default route for undefined endpoints
 app.use((req, res) => {
