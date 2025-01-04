@@ -29,31 +29,35 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// POST route for logging in a user
+// POST route for user login
 router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
+    }
+
     try {
-        const { username, password } = req.body;
-
-        // Validate input
-        if (!username || !password) {
-            return res.status(400).json({ error: 'Username and password are required' });
-        }
-
-        // Find the user by username
+        // Find the user in the database
         const user = await User.findOne({ username });
+
         if (!user) {
-            return res.status(400).json({ error: 'Invalid username or password' });
+            return res.status(404).json({ error: 'User not found' });
         }
 
         // Check if the password matches
         if (user.password !== password) {
-            return res.status(400).json({ error: 'Invalid username or password' });
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // If the username and password match, return success message
-        res.status(200).json({ message: 'Login successful', user });
+        // Successful login: send username back to the client
+        res.status(200).json({
+            message: 'Login successful',
+            username: user.username,
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
