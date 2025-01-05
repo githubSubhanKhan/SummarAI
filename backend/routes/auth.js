@@ -29,6 +29,29 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.post('/createadmin', async (req, res) => {
+    try {
+        const {username, password} = req.body;
+
+        // Validate input
+        if (!username || !password) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
+        // Create a new admin
+        const newAdmin = new User({ username, password, isAdmin: true });
+        await newAdmin.save();
+
+        res.status(201).json({ message: 'Admin registered successfully', user: newAdmin });
+        
+    } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ error: 'Username already exists' });
+        }
+        res.status(500).json({ error: error.message });
+    }
+})
+
 // POST route for user login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -50,17 +73,22 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Successful login: send username back to the client
-        res.status(200).json({
-            message: 'Login successful',
-            username: user.username,
-        });
+        // Check if the user is an admin
+        if (user.isAdmin) {
+            // Admin login
+            return res.status(200).json({ message: 'Login successful' });
+        } else {
+            // Regular user login
+            return res.status(200).json({
+                message: 'Login successful',
+                username: user.username,
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
 
 
 module.exports = router;

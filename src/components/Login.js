@@ -26,7 +26,7 @@ const Login = () => {
         // Save username in localStorage
         localStorage.setItem('username', data.username);
 
-        setSuccess('User registered successfully!');
+        setSuccess('User login successfully!');
         // Navigate to the home page
         setTimeout(() => {
           navigate('/home'); // Redirect to home page after successful signup

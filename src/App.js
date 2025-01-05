@@ -7,6 +7,7 @@ import About from './components/About';
 import Welcome from './components/Welcome';
 import Home from './components/Home';
 import Admin from './components/Admin';
+import AdminHome from './components/AdminHome';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/admin" element={<Admin/>} />
+          <Route path="/adminhome" element={<AdminHome/>} />
         </Routes>
       </BrowserRouter>
     </>

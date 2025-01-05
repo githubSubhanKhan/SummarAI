@@ -2,15 +2,39 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleAdminLogin = () => {
-        navigate('/createpost');
-    }
+    const handleAdminLogin = async (e) => {
+        e.preventDefault(); // Prevent form submission
+    
+        try {
+          const response = await fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+          });
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+            setSuccess('Admin login successfully!');
+            setTimeout(() => {
+              navigate('/adminhome'); // Redirect to home page after successful signup
+            }, 2000);
+          } else {
+            // Display error message
+            setError(data.error || 'Login failed');
+          }
+        } catch (err) {
+          setError('An error occurred while logging in. Please try again.');
+        }
+      };
 
     return (
         <>
@@ -21,12 +45,13 @@ const Admin = () => {
                         {error && <div className="alert alert-danger">{error}</div>}
                         <form onSubmit={handleAdminLogin}>
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label">Email</label>
+                                <label htmlFor="username" className="form-label">Username</label>
                                 <input
-                                    type="email"
+                                    type="text"
                                     className="form-control"
-                                    id="email"
-                                    value={email}
+                                    id="username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                     required
                                 />
                             </div>
@@ -37,6 +62,7 @@ const Admin = () => {
                                     className="form-control"
                                     id="password"
                                     value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
                             </div>
