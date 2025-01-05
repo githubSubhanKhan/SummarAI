@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import About from './components/About';
 import Welcome from './components/Welcome';
 import Home from './components/Home';
+import Admin from './components/Admin';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/admin" element={<Admin/>} />
         </Routes>
       </BrowserRouter>
     </>

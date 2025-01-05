@@ -9,12 +9,19 @@ const Navbar = () => {
     const handleLogout = () => {
         // Remove the username from localStorage
         localStorage.removeItem('username');
-        
+
         // Redirect to the login page without refreshing the page
         navigate('/login');
     };
 
+    const handleAdminClick = () => {
+        navigate('/admin');
+    }
+
     const isLoggedIn = localStorage.getItem('username') !== null;
+
+    // Check if the current route is the homepage (or welcome page)
+    const isHomePage = location.pathname === '/';
 
     return (
         <div>
@@ -34,14 +41,22 @@ const Navbar = () => {
                             </li>
                         </ul>
                         <div class="d-flex">
-                        {isLoggedIn && (
-                        <button 
-                            className="btn btn-outline-primary" 
-                            type="button" 
-                            onClick={handleLogout}>
-                            Logout
-                        </button>
-                    )}
+                            {isLoggedIn && (
+                                <button
+                                    className="btn btn-outline-primary"
+                                    type="button"
+                                    onClick={handleLogout}>
+                                    Logout
+                                </button>
+                            )}
+                            {isHomePage && (
+                                <button
+                                    className="btn btn-outline-primary"
+                                    type="button"
+                                    onClick={handleAdminClick}>
+                                    Admin
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
