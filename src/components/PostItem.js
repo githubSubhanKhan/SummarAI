@@ -3,6 +3,7 @@ import AddComment from './AddComment';
 import Comments from './Comments';
 
 const PostItem = () => {
+    const postId = "677931daedbc468cd348ffeb"
 
     return (
         <div>
@@ -30,7 +31,7 @@ const PostItem = () => {
                         </div>
                     </div>
                 </div>
-                <AddComment />
+                <AddComment postId={postId}/>
             </div>
         </div>
     );
