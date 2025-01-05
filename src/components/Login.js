@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -25,8 +26,11 @@ const Login = () => {
         // Save username in localStorage
         localStorage.setItem('username', data.username);
 
+        setSuccess('User registered successfully!');
         // Navigate to the home page
-        navigate('/home');
+        setTimeout(() => {
+          navigate('/home'); // Redirect to home page after successful signup
+        }, 2000);
       } else {
         // Display error message
         setError(data.error || 'Login failed');
@@ -71,6 +75,7 @@ const Login = () => {
               </div>
             </form>
           </div>
+              {success && <div className="text-success mb-3">{success}</div>}
         </div>
       </div>
     </>
