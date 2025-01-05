@@ -66,4 +66,28 @@ router.post('/:postId/addcomment', async (req, res) => {
   }
 });
 
+// GET route to fetch all comments for a specific post
+router.get('/:postId/getcomments', async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+      // Find the post by ID
+      const post = await Post.findById(postId);
+
+      if (!post) {
+          return res.status(404).json({ error: 'Post not found' });
+      }
+
+      // Send the comments as the response
+      res.status(200).json({
+          message: 'Comments fetched successfully',
+          comments: post.comments, // Return the comments array
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error fetching comments' });
+  }
+});
+
+
 module.exports = router;
