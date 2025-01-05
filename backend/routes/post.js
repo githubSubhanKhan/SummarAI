@@ -5,17 +5,15 @@ const router = express.Router();
 
 // POST route to create a new post
 router.post('/createpost', async (req, res) => {
-  const { title, likes, comments } = req.body;
+  const { title } = req.body;
 
-  if (!title || likes === undefined || comments === undefined) {
-    return res.status(400).json({ error: 'Title, likes, and comments are required' });
+  if (!title) {
+    return res.status(400).json({ error: 'Title is required' });
   }
 
   // Create a new post object
   const newPost = new Post({
-    title,
-    likes,
-    comments, // Assuming comments is an array (empty or with existing comments)
+    title // Assuming comments is an array (empty or with existing comments)
   });
 
   try {
