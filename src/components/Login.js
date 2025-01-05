@@ -44,8 +44,8 @@ const Login = () => {
     <>
       <h1 className='container d-flex justify-content-center align-items-center my-5'>Login</h1>
       <div className='container d-flex justify-content-center align-items-center my-5'>
-        <div class="card" style={{ width: "18rem" }}>
-          <div class="card-body">
+        <div className="card" style={{ width: "18rem" }}>
+          <div className="card-body">
             {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={handleLogin}>
               <div className="mb-3">
