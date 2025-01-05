@@ -1,6 +1,5 @@
 import React from 'react';
 import AddComment from './AddComment';
-import ShowCommentsModal from './ShowCommentsModal';
 import Comments from './Comments';
 
 const PostItem = () => {
