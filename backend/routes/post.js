@@ -66,6 +66,20 @@ router.post('/:postId/addcomment', async (req, res) => {
   }
 });
 
+// GET route to fetch all posts
+router.get('/fetchposts', async (req, res) => {
+  try {
+    // Fetch all posts from the database
+    const posts = await Post.find();
+
+    // Return the posts in the response
+    res.status(200).json({ posts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching posts' });
+  }
+});
+
 // GET route to fetch all comments for a specific post
 router.get('/:postId/getcomments', async (req, res) => {
   const { postId } = req.params;

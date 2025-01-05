@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ postId, onCommentAdded }) => {
     const [comment, setComment] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -23,7 +23,7 @@ const AddComment = ({ postId }) => {
         }
 
         try {
-            // Make a POST request to the backend
+            // Make a POST request to the backend to add the comment
             const response = await fetch(`http://localhost:5000/api/post/${postId}/addcomment`, {
                 method: "POST",
                 headers: {
@@ -36,6 +36,11 @@ const AddComment = ({ postId }) => {
                 const data = await response.json();
                 setSuccess("Comment added successfully!");
                 setComment(""); // Clear the input field
+
+                // Call the parent function to fetch and display new comments
+                if (onCommentAdded) {
+                    onCommentAdded();  // Trigger parent function to update comments
+                }
             } else {
                 const errorData = await response.json();
                 setError(errorData.error || "Failed to add comment.");
@@ -71,8 +76,7 @@ const AddComment = ({ postId }) => {
                 {error && <p className="text-danger">{error}</p>}
             </form>
         </div>
-
     );
-}
+};
 
 export default AddComment;
