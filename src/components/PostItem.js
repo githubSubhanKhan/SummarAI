@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddComment from './AddComment';
 import Comments from './Comments';
+import SummaryComment from './SummaryComment';
 
 const PostItem = () => {
     const [posts, setPosts] = useState([]);  // Initialize as empty array
@@ -75,6 +76,7 @@ const PostItem = () => {
                             </div>
                         </div>
                         <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
+                            <SummaryComment/>
                     </div>
                 ))
             )}
