@@ -40,7 +40,7 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
                         </ul>
-                        <div class="d-flex">
+                        <div className="d-flex">
                             {isLoggedIn && (
                                 <button
                                     className="btn btn-outline-primary"

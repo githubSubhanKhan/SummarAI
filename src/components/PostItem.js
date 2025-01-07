@@ -58,7 +58,7 @@ const PostItem = () => {
                             <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
                                 Comments
                             </button>
-                            <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
+                            <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-scrollable">
                                     <div className="modal-content">
                                         <div className="modal-header">

@@ -35,8 +35,21 @@ const SummaryComment = ({ postId }) => {
     return (
         <div className="mb-3">
             <label htmlFor="exampleFormControlTextarea1" className="form-label">AI Generated Comments Summary</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" disabled readOnly value={error || summary}></textarea>
-            
+            <div
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                style={{
+                    minHeight: '60px', // Adjust height to fit 3 lines
+                    backgroundColor: '#f8f9fa', 
+                    padding: '10px',
+                    overflow: 'hidden', // Prevent scrolling or resizing
+                    resize: 'none', // Disable resizing
+                    whiteSpace: 'pre-wrap', // Maintain line breaks
+                    wordWrap: 'break-word', // Break words to avoid overflow
+                }}
+            >
+                {error || summary} {/* Display error or summary */}
+            </div>
         </div>
     );
 }
