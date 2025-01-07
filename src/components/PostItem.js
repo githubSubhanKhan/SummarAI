@@ -76,7 +76,7 @@ const PostItem = () => {
                             </div>
                         </div>
                         <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
-                            <SummaryComment/>
+                            <SummaryComment postId={post._id}/>
                     </div>
                 ))
             )}

@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../models/Post')
+const summarizeComments = require('../summarize')
 const router = express.Router();
 
 
@@ -101,37 +102,42 @@ router.get('/:postId/getcomments', async (req, res) => {
   }
 });
 
-// GET route to fetch all comments for a specific post and concatenate them
+// Route to fetch comments, concatenate them, and summarize
 router.get('/:postId/getsummarizedcomments', async (req, res) => {
   const { postId } = req.params;
 
   try {
-      // Find the post by ID
-      const post = await Post.findById(postId);
+    // Find the post by ID
+    const post = await Post.findById(postId);
 
-      if (!post) {
-          return res.status(404).json({ error: 'Post not found' });
-      }
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
 
-      // Fetch comments and concatenate them into a single string
-      const comments = post.comments || [];
-// Extract only the comment field from each object
-const commentTexts = comments.map(c => c.comment);
-// Remove duplicates
-const uniqueComments = [...new Set(commentTexts)];
-// Concatenate comments
-const combinedComments = uniqueComments.join('. ');
+    // Fetch comments and concatenate them into a single string
+    const comments = post.comments || [];
+    const commentTexts = comments.map((c) => c.comment);
+    const uniqueComments = [...new Set(commentTexts)];
+    const combinedComments = uniqueComments.join('. ');
 
-      // Send the concatenated comments as the response
-      res.status(200).json({
-          message: 'Comments fetched and concatenated successfully',
-          combinedComments: combinedComments, // Return the concatenated comments
-      });
+    if (!combinedComments) {
+      return res.status(400).json({ error: 'No comments to summarize' });
+    }
+
+    // Summarize the concatenated comments
+    const summary = await summarizeComments(combinedComments);
+
+    // Send the summarized comments as the response
+    res.status(200).json({
+      message: 'Comments summarized successfully',
+      summary,
+    });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error fetching comments' });
+    console.error(error);
+    res.status(500).json({ error: 'Error summarizing comments' });
   }
 });
+
 
 
 module.exports = router;
