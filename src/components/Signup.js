@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = (props) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     confirmPassword: '',
   });
-
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,8 +19,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     try {
       const response = await fetch('http://localhost:5000/api/auth/register', {
@@ -37,15 +32,16 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('User registered successfully!');
+        props.showAlert("User registered successfully!", "success");
+        console.log(data);
         setTimeout(() => {
           navigate('/login'); // Redirect to login page after successful signup
         }, 2000);
       } else {
-        setError(data.error || 'Something went wrong');
+        props.showAlert("Something went wrong", "warning");
       }
     } catch (err) {
-      setError('Failed to connect to the server');
+      props.showAlert("Failed to connect to the server", "danger");
     }
   };
 
@@ -87,8 +83,6 @@ const Signup = () => {
                 required
               />
             </div>
-            {error && <div className="text-danger mb-3">{error}</div>}
-            {success && <div className="text-success mb-3">{success}</div>}
             <div className="container d-flex justify-content-center align-items-center">
               <button type="submit" className="btn btn-primary">Create Account</button>
             </div>
