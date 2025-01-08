@@ -18,7 +18,7 @@ const Navbar = () => {
         navigate('/admin');
     }
 
-    const isLoggedIn = localStorage.getItem('username') !== null;
+    const isLoggedIn = location.pathname === '/home'
 
     // Check if the current route is the homepage (or welcome page)
     const isHomePage = location.pathname === '/';
