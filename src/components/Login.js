@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -26,17 +24,17 @@ const Login = () => {
         // Save username in localStorage
         localStorage.setItem('username', data.username);
 
-        setSuccess('User login successfully!');
+        props.showAlert("User login successfully!", "success");
         // Navigate to the home page
         setTimeout(() => {
           navigate('/home'); // Redirect to home page after successful signup
         }, 2000);
       } else {
         // Display error message
-        setError(data.error || 'Login failed');
+        props.showAlert("Login failed!", "warning")
       }
     } catch (err) {
-      setError('An error occurred while logging in. Please try again.');
+      props.showAlert("An error occurred while logging in. Please try again.", "danger")
     }
   };
 
@@ -46,7 +44,6 @@ const Login = () => {
       <div className='container d-flex justify-content-center align-items-center my-5'>
         <div className="card" style={{ width: "18rem" }}>
           <div className="card-body">
-            {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={handleLogin}>
               <div className="mb-3">
                 <label htmlFor="username" className="form-label">Username</label>
@@ -75,7 +72,6 @@ const Login = () => {
               </div>
             </form>
           </div>
-              {success && <div className="text-success mb-3">{success}</div>}
         </div>
       </div>
     </>
