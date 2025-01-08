@@ -24,6 +24,7 @@ const AdminHome = () => {
             // You can handle the response here if needed, but no messages will be shown
             const data = await response.json();
             if (response.ok) {
+                console.log(data)
                 // Optionally, you can reset the form or perform other actions here
                 setTitle(''); // Reset title after successful post creation
             }
@@ -61,7 +62,7 @@ const AdminHome = () => {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" className="btn btn-primary">Add Post</button> {/* Change type to "submit" */}
+                                    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Add Post</button> {/* Change type to "submit" */}
                                 </div>
                             </div>
                         </form>
