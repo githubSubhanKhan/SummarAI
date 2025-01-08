@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AdminHome = () => {
+const AdminHome = (props) => {
     const [title, setTitle] = useState('');
 
     const handleChange = (e) => {
@@ -27,49 +27,52 @@ const AdminHome = () => {
                 console.log(data)
                 // Optionally, you can reset the form or perform other actions here
                 setTitle(''); // Reset title after successful post creation
+                props.showAlert("Post created successfully!", "success");
             }
         } catch (err) {
             // Handle connection errors silently
-            console.error('Failed to connect to the server', err);
+            props.showAlert("Internal server error!", "danger");
         }
     };
 
     return (
-        <div className='container my-2 d-flex justify-content-center align-items-center'>
-            <h1>Admin Panel</h1>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Create Post
-            </button>
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Post</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form onSubmit={handleCreatePost}>
-                            <div className="modal-body">
-                                <div className="mb-3">
-                                    <label htmlFor="title" className="form-label">Title</label>
-                                    <input
-                                        type="text"
-                                        id="title"
-                                        value={title}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Add Post</button> {/* Change type to "submit" */}
-                                </div>
+        <>
+            <h1 className='container d-flex justify-content-center align-items-center my-5'>Admin Panel</h1>
+            <div className='container my-2 d-flex justify-content-center align-items-center'>
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Create Post
+                </button>
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Post</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                        </form>
+                            <form onSubmit={handleCreatePost}>
+                                <div className="modal-body">
+                                    <div className="mb-3">
+                                        <label htmlFor="title" className="form-label">Title</label>
+                                        <input
+                                            type="text"
+                                            id="title"
+                                            value={title}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Add Post</button> {/* Change type to "submit" */}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -7,14 +7,21 @@ const Navbar = (props) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Remove the username from localStorage
-        localStorage.removeItem('username');
+        if (isLoggedIn) {
+            // Remove the username from localStorage
+            localStorage.removeItem('username');
 
-        setTimeout(() => {
-            props.showAlert("Logout successful!", "success")
-            // Redirect to the login page without refreshing the page
-            navigate('/login');
-          }, 2000);
+            setTimeout(() => {
+                // Redirect to the login page without refreshing the page
+                navigate('/login');
+                props.showAlert("Logout successful!", "success")
+            }, 2000);
+        } else if (onAdminPage) {
+            setTimeout(() => {
+                navigate('/admin');
+                props.showAlert("Logout successful!", "success")
+            }, 2000);
+        }
 
     };
 
@@ -34,6 +41,7 @@ const Navbar = (props) => {
 
     const onLoginPage = location.pathname === '/login'
     const onSignupPage = location.pathname === '/signup'
+    const onAdminPage = location.pathname === '/adminhome'
 
     // Check if the current route is the homepage (or welcome page)
     const isHomePage = location.pathname === '/';
@@ -49,16 +57,16 @@ const Navbar = (props) => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         {isHomePage &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
-                            </li>
-                        </ul>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
+                                </li>
+                            </ul>
                         }
                         <div className="d-flex ms-auto">
-                            {isLoggedIn && (
+                            {isLoggedIn || onAdminPage && (
                                 <button
                                     className="btn btn-outline-primary"
                                     type="button"
@@ -76,19 +84,19 @@ const Navbar = (props) => {
                             )}
                             {onLoginPage && (
                                 <button
-                                className="btn btn-outline-primary"
-                                type="button"
-                                onClick={handleSignupClick}>
-                                Signup
-                            </button>
+                                    className="btn btn-outline-primary"
+                                    type="button"
+                                    onClick={handleSignupClick}>
+                                    Signup
+                                </button>
                             )}
                             {onSignupPage && (
                                 <button
-                                className="btn btn-outline-primary"
-                                type="button"
-                                onClick={handleLoginClick}>
-                                Login
-                            </button>
+                                    className="btn btn-outline-primary"
+                                    type="button"
+                                    onClick={handleLoginClick}>
+                                    Login
+                                </button>
                             )}
                         </div>
                     </div>
