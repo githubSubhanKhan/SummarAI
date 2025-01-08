@@ -31,7 +31,7 @@ const Login = (props) => {
         }, 2000);
       } else {
         // Display error message
-        props.showAlert("Login failed!", "warning")
+        props.showAlert("Invalid username or password!", "warning")
       }
     } catch (err) {
       props.showAlert("An error occurred while logging in. Please try again.", "danger")

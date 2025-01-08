@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Admin = () => {
+const Admin = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleAdminLogin = async (e) => {
@@ -23,16 +21,16 @@ const Admin = () => {
           const data = await response.json();
     
           if (response.ok) {
-            setSuccess('Admin login successfully!');
+            props.showAlert("Admin login successfully!", "success");
             setTimeout(() => {
               navigate('/adminhome'); // Redirect to home page after successful signup
             }, 2000);
           } else {
             // Display error message
-            setError(data.error || 'Login failed');
+            props.showAlert("Invalid username or password!", "warning")
           }
         } catch (err) {
-          setError('An error occurred while logging in. Please try again.');
+          props.showAlert("An error occurred while logging in. Please try again.", "danger")
         }
       };
 
@@ -42,7 +40,6 @@ const Admin = () => {
             <div className='container d-flex justify-content-center align-items-center my-5'>
                 <div className="card" style={{ width: "18rem" }}>
                     <div className="card-body">
-                        {error && <div className="alert alert-danger">{error}</div>}
                         <form onSubmit={handleAdminLogin}>
                             <div className="mb-3">
                                 <label htmlFor="username" className="form-label">Username</label>
@@ -71,7 +68,6 @@ const Admin = () => {
                             </div>
                         </form>
                     </div>
-                    {success && <div className="text-success mb-3">{success}</div>}
                 </div>
             </div>
         </>
