@@ -12,7 +12,7 @@ const summarizeComments = async (comments) => {
       messages: [
         {
           role: 'user',
-          content: `Summarize the following comments in a concise manner, focusing on the overall sentiment or main points, in 2-3 lines. Do not provide separate summaries for individual comments: ${comments}`,
+          content: `Summarize the following comments in a single, concise summary. Do not focus on individual sentences or comments. Instead, capture the general sentiment, key points, or overall theme from all the comments. Here's the combined comments: ${comments}`,
         },
       ],
       model: 'llama3.1-8b',
