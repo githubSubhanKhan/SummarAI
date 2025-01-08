@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = (props) => {
     let location = useLocation();
 
     const navigate = useNavigate();
@@ -10,8 +10,12 @@ const Navbar = () => {
         // Remove the username from localStorage
         localStorage.removeItem('username');
 
-        // Redirect to the login page without refreshing the page
-        navigate('/login');
+        setTimeout(() => {
+            props.showAlert("Logout successful!", "success")
+            // Redirect to the login page without refreshing the page
+            navigate('/login');
+          }, 2000);
+
     };
 
     const handleAdminClick = () => {
@@ -32,7 +36,8 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        {isHomePage &&
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                             </li>
@@ -40,7 +45,8 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
                         </ul>
-                        <div className="d-flex">
+                        }
+                        <div className="d-flex ms-auto">
                             {isLoggedIn && (
                                 <button
                                     className="btn btn-outline-primary"
