@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = (props) => {
@@ -46,50 +46,53 @@ const Signup = (props) => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center my-5">
-      <div className="card" style={{ width: "18rem" }}>
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="username" className="form-label">Username</label>
-              <input
-                type="text"
-                className="form-control"
-                id="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="container d-flex justify-content-center align-items-center">
-              <button type="submit" className="btn btn-primary">Create Account</button>
-            </div>
-          </form>
+    <>
+      <h1 className='container d-flex justify-content-center align-items-center my-5'>Signup</h1>
+      <div className="container d-flex justify-content-center align-items-center my-5">
+        <div className="card" style={{ width: "18rem" }}>
+          <div className="card-body">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="username" className="form-label">Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="container d-flex justify-content-center align-items-center">
+                <button type="submit" className="btn btn-primary">Create Account</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -22,7 +22,18 @@ const Navbar = (props) => {
         navigate('/admin');
     }
 
+    const handleSignupClick = () => {
+        navigate('/signup')
+    }
+
+    const handleLoginClick = () => {
+        navigate('/login')
+    }
+
     const isLoggedIn = location.pathname === '/home'
+
+    const onLoginPage = location.pathname === '/login'
+    const onSignupPage = location.pathname === '/signup'
 
     // Check if the current route is the homepage (or welcome page)
     const isHomePage = location.pathname === '/';
@@ -62,6 +73,22 @@ const Navbar = (props) => {
                                     onClick={handleAdminClick}>
                                     Admin
                                 </button>
+                            )}
+                            {onLoginPage && (
+                                <button
+                                className="btn btn-outline-primary"
+                                type="button"
+                                onClick={handleSignupClick}>
+                                Signup
+                            </button>
+                            )}
+                            {onSignupPage && (
+                                <button
+                                className="btn btn-outline-primary"
+                                type="button"
+                                onClick={handleLoginClick}>
+                                Login
+                            </button>
                             )}
                         </div>
                     </div>
