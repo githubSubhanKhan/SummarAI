@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
         newUser = new User({ username, password: hashedPass });
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully', user: newUser });
+        res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         if (error.code === 11000) {
             return res.status(400).json({ error: 'Username already exists' });
@@ -46,11 +46,14 @@ router.post('/createadmin', async (req, res) => {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(password, salt);
+
         // Create a new admin
-        const newAdmin = new User({ username, password, isAdmin: true });
+        const newAdmin = new User({ username, password: hashedPass, isAdmin: true });
         await newAdmin.save();
 
-        res.status(201).json({ message: 'Admin registered successfully', user: newAdmin });
+        res.status(201).json({ message: 'Admin registered successfully' });
         
     } catch (error) {
         if (error.code === 11000) {
@@ -86,7 +89,7 @@ router.post('/login', async (req, res) => {
         // Check if the user is an admin
         if (user.isAdmin) {
             // Admin login
-            return res.status(200).json({ message: 'Login successful' });
+            return res.status(200).json({ message: 'Login successful', username: newUser.username });
         } else {
             // Regular user login
             return res.status(200).json({
