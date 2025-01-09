@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User'); // Adjust path to User model
 
 const router = express.Router();
@@ -8,6 +9,7 @@ router.post('/register', async (req, res) => {
     try {
         const { username, password, confirmPassword } = req.body;
 
+        
         // Validate input
         if (!username || !password || !confirmPassword) {
             return res.status(400).json({ error: 'All fields are required' });
@@ -15,9 +17,15 @@ router.post('/register', async (req, res) => {
         if (password !== confirmPassword) {
             return res.status(400).json({ error: 'Passwords do not match' });
         }
-
+        let newUser = await User.findOne({ username: username });
+        if (newUser) {
+          return res.status(400).json({ error: "Sorry a user with this email already exists" })
+        }
+        
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(password, salt);
         // Create a new user
-        const newUser = new User({ username, password });
+        newUser = new User({ username, password: hashedPass });
         await newUser.save();
 
         res.status(201).json({ message: 'User registered successfully', user: newUser });
@@ -68,8 +76,10 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        const passwordCompare = await bcrypt.compare(password, user.password);
+
         // Check if the password matches
-        if (user.password !== password) {
+        if (!passwordCompare) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
