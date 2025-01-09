@@ -19,6 +19,9 @@ const AddComment = ({ postId, onCommentAdded }) => {
 
         if (!comment.trim()) {
             setError("Comment cannot be empty.");
+            setTimeout(() => {
+                setError("")
+            }, 2000);
             return;
         }
 
