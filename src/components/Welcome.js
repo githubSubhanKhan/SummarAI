@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Welcome = () => {
   return (
-      <div className='container flex justify-content-center align-items-center my-5'>
-        <h1>Welcome To CakeBook</h1>
+    <>
+        <h1 className='container d-flex justify-content-center align-items-center my-5'>Welcome To Postify</h1>
+      <div className='container d-flex justify-content-center align-items-center my-5'>
         <Link to="/signup">
           <button className="btn btn-primary mx-5">Signup</button>
         </Link>
@@ -12,6 +13,7 @@ const Welcome = () => {
           <button className="btn btn-primary mx-5">Login</button>
         </Link>
       </div>
+    </>
   );
 }
 
