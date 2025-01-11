@@ -54,7 +54,7 @@ const Navbar = (props) => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {(isHomePage || isAboutPage || isAdminLoginPage) &&
+                        {(isHomePage || isAboutPage || isAdminLoginPage || onLoginPage || onSignupPage) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
                                     <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
