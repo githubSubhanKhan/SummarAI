@@ -6,6 +6,8 @@ import SummaryComment from './SummaryComment';
 const PostItem = () => {
     const [posts, setPosts] = useState([]);  // Initialize as empty array
     const [loading, setLoading] = useState(true);
+    const [likedPosts, setLikedPosts] = useState({});
+
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -41,6 +43,47 @@ const PostItem = () => {
         fetchComments();
     };
 
+    const handleLikeClick = async (postId) => {
+        try {
+            const username = localStorage.getItem('username');
+
+            // Check if the user has already liked the post (by username)
+            if (likedPosts[postId] && likedPosts[postId] === username) {
+                console.log('Post already liked by this user');
+                return;
+            }
+
+            const response = await fetch(`http://localhost:5000/api/post/${postId}/like`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Update the post likes in the state
+                setPosts((prevPosts) =>
+                    prevPosts.map((post) =>
+                        post._id === postId ? { ...post, likes: data.likes } : post
+                    )
+                );
+                // Mark this post as liked by the current user in localStorage
+                setLikedPosts((prevLikedPosts) => ({
+                    ...prevLikedPosts,
+                    [postId]: username, // Save the username with the postId to track likes
+                }));
+                localStorage.setItem('likedPosts', JSON.stringify(likedPosts)); // Store in localStorage
+            } else {
+                console.error(data.error); // Log error message (e.g., "User has already liked this post")
+            }
+        } catch (error) {
+            console.error('Error liking the post:', error);
+        }
+    };
+
     if (loading) {
         return <div>Loading posts...</div>;
     }
@@ -51,11 +94,20 @@ const PostItem = () => {
                 <div key={post._id} className="card my-2" style={{ width: "30rem" }}>
                     <img src={`/images/${post.image}`} class="card-img-top"></img>
                     <div className='container my-2'>
-                    <p className="card-text">{post.title}</p>
+                        <p className="card-text">{post.title}</p>
                     </div>
                     <div className="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" className="btn custom-btn">Like</button>
+                        <button
+                            type="button"
+                            className="btn custom-btn"
+                            onClick={() => handleLikeClick(post._id)}
+                        >
+                            <i class="fa-solid fa-thumbs-up mx-2"></i>
+                            Like ({post.likes || 0})
+                        </button>
+
                         <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
+                            <i class="fa-solid fa-comment mx-2"></i>
                             Comments
                         </button>
                         <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
@@ -76,8 +128,8 @@ const PostItem = () => {
                         </div>
                     </div>
                     <div className="container">
-                    <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
-                    <SummaryComment postId={post._id} />
+                        <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
+                        <SummaryComment postId={post._id} />
                     </div>
                 </div>
             ))}

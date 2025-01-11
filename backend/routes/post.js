@@ -138,6 +138,35 @@ router.get('/:postId/getsummarizedcomments', async (req, res) => {
   }
 });
 
+// PUT route to update likes
+router.put('/:postId/like', async (req, res) => {
+  const { username } = req.body; // User ID from request body
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findById(postId);
+
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Check if the user has already liked the post
+    if (post.likedBy.includes(username)) {
+      return res.status(400).json({ error: 'User has already liked this post' });
+    }
+
+    // Update the post with the new like
+    post.likes += 1;
+    post.likedBy.push(username);
+    await post.save();
+
+    res.status(200).json({ message: 'Post liked successfully', likes: post.likes });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error liking the post' });
+  }
+});
 
 
 module.exports = router;

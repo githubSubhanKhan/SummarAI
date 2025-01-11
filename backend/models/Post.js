@@ -28,6 +28,7 @@ const PostSchema = new Schema({
     type: Number,
     default: 0,
   },
+  likedBy: { type: [String], default: [] },
   comments: [CommentSchema], // Array of comments
   date: {
     type: Date,
