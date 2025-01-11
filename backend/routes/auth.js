@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
         // Check if the user is an admin
         if (user.isAdmin) {
             // Admin login
-            return res.status(200).json({ message: 'Login successful', username: newUser.username });
+            return res.status(200).json({ message: 'Login successful', username: user.username });
         } else {
             // Regular user login
             return res.status(200).json({
