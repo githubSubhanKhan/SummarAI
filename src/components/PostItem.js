@@ -47,39 +47,41 @@ const PostItem = () => {
 
     return (
         <div>
-            {posts.length === 0 ? (
-                <div>No posts available</div>
-            ) : (
-                posts.map((post) => (
-                    <div key={post._id} className="card" style={{ width: "30rem" }}>
-                        <p className="card-text">{post.title}</p>
-                        <div className="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="button" className="btn custom-btn">Like</button>
-                            <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
-                                Comments
-                            </button>
-                            <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
-                                <div className="modal-dialog modal-dialog-scrollable">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id={`staticBackdropLabel${post._id}`}>Comments</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div className="modal-body">
+
+            {posts.map((post) => (
+                <div key={post._id} className="card my-2" style={{ width: "30rem" }}>
+                    <img src={post.image} class="card-img-top"></img>
+                    <div className='container my-2'>
+                    <p className="card-text">{post.title}</p>
+                    </div>
+                    <div className="btn-group" role="group" aria-label="Basic outlined example">
+                        <button type="button" className="btn custom-btn">Like</button>
+                        <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
+                            Comments
+                        </button>
+                        <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-scrollable">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id={`staticBackdropLabel${post._id}`}>Comments</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
                                         <Comments comments={post.comments} />
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
-                            <SummaryComment postId={post._id}/>
                     </div>
-                ))
-            )}
+                    <div className="container">
+                    <AddComment postId={post._id} onCommentAdded={() => handleCommentAdded(post._id)} />
+                    <SummaryComment postId={post._id} />
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

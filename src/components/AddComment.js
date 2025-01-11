@@ -1,9 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AddComment = ({ postId, onCommentAdded }) => {
     const [comment, setComment] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [timer, setTimer] = useState(null);
+
+    useEffect(() => {
+        // Check if the user has commented recently
+        const lastCommentTime = localStorage.getItem("lastCommentTime");
+        if (lastCommentTime) {
+            const timeElapsed = Math.floor((Date.now() - lastCommentTime) / 1000); // in seconds
+            const remainingTime = 60 - timeElapsed;
+
+            if (remainingTime > 0) {
+                setTimer(remainingTime); // Set timer if time left is less than a minute
+                const countdown = setInterval(() => {
+                    setTimer(prev => {
+                        if (prev <= 1) {
+                            clearInterval(countdown);
+                            return null;
+                        }
+                        return prev - 1;
+                    });
+                }, 1000);
+            }
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +48,11 @@ const AddComment = ({ postId, onCommentAdded }) => {
             return;
         }
 
+        if (timer) {
+            setError(`You can comment again in ${timer} seconds.`);
+            return;
+        }
+
         try {
             // Make a POST request to the backend to add the comment
             const response = await fetch(`http://localhost:5000/api/post/${postId}/addcomment`, {
@@ -40,10 +68,16 @@ const AddComment = ({ postId, onCommentAdded }) => {
                 setSuccess("Comment added successfully!");
                 setComment(""); // Clear the input field
 
+                // Save the current time as the last comment time
+                localStorage.setItem("lastCommentTime", Date.now());
+
                 // Call the parent function to fetch and display new comments
                 if (onCommentAdded) {
                     onCommentAdded();  // Trigger parent function to update comments
                 }
+
+                // Reset timer
+                setTimer(60);
             } else {
                 const errorData = await response.json();
                 setError(errorData.error || "Failed to add comment.");
@@ -70,13 +104,16 @@ const AddComment = ({ postId, onCommentAdded }) => {
                         />
                         <button
                             type="submit"
-                            className="btn btn-primary">
+                            className="btn btn-primary"
+                            disabled={timer !== null} // Disable the button if there's a timer
+                        >
                             Post
                         </button>
                     </div>
                 </div>
                 {success && <p className="text-success">{success}</p>}
                 {error && <p className="text-danger">{error}</p>}
+                {timer && <p className="text-warning">You can comment again in {timer} seconds.</p>}
             </form>
         </div>
     );

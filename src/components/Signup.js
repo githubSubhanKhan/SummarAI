@@ -47,7 +47,7 @@ const Signup = (props) => {
 
   return (
     <>
-      <h1 className='container d-flex justify-content-center align-items-center my-5'>Signup</h1>
+      <h1 className='container d-flex justify-content-center align-items-center my-2'>Signup</h1>
       <div className="container d-flex justify-content-center align-items-center my-5">
         <div className="card" style={{ width: "18rem" }}>
           <div className="card-body">
