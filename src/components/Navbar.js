@@ -41,9 +41,8 @@ const Navbar = (props) => {
     const onLoginPage = location.pathname === '/login'
     const onSignupPage = location.pathname === '/signup'
     const onAdminPage = location.pathname === '/adminhome'
-
-    // Check if the current route is the homepage (or welcome page)
     const isHomePage = location.pathname === '/';
+    const isAboutPage = location.pathname === '/about';
 
     return (
         <div>
@@ -54,7 +53,7 @@ const Navbar = (props) => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {isHomePage &&
+                        {(isHomePage || isAboutPage) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
                                     <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
