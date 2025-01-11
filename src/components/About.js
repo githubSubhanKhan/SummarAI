@@ -45,18 +45,32 @@ const About = () => {
       <div className="container mt-5 d-flex justify-content-center align-items-center">
         <h1>Our Socials</h1>
       </div>
-      <div className="container mt-3 d-flex justify-content-center align-items-center flex-row">
-        <div className="d-flex justify-content-center align-items-center">
-          <i className="fa-brands fa-linkedin" style={{ fontSize: '40px' }}></i>
-          <p className="mb-0 ms-2 me-5"><a className="link-opacity-100-hover" href="https://www.linkedin.com/in/msubhankhan21/" target='_blank'>LinkedIn</a></p>
-        </div>
-        <div className="d-flex justify-content-center align-items-center">
-          <i className="fa-brands fa-github" style={{ fontSize: '40px' }}></i>
-          <p className="mb-0 ms-2 me-5"><a className="link-opacity-100-hover" href="https://github.com/githubSubhanKhan" target='_blank'>GitHub</a></p>
-        </div>
-        <div className="d-flex justify-content-center align-items-center">
-          <i className="fa-solid fa-envelope" style={{ fontSize: '40px' }}></i>
-          <p className="mb-0 ms-2 me-5"><a className="link-opacity-100-hover" href="mailto:subhankhan21102005@gmail.com" target='_blank'>Email</a></p>
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-center align-items-center text-center mt-2">
+          <div class="d-flex align-items-center me-4 mb-3">
+            <i class="fa-brands fa-linkedin me-2" style={{fontSize: "40px"}}></i>
+            <p class="mb-0">
+              <a class="link-opacity-100-hover" href="https://www.linkedin.com/in/msubhankhan21/" target="_blank">
+                LinkedIn
+              </a>
+            </p>
+          </div>
+          <div class="d-flex align-items-center me-4 mb-3">
+            <i class="fa-brands fa-github me-2" style={{fontSize: "40px"}}></i>
+            <p class="mb-0">
+              <a class="link-opacity-100-hover" href="https://github.com/githubSubhanKhan" target="_blank">
+                GitHub
+              </a>
+            </p>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-envelope me-2" style={{fontSize: "40px"}}></i>
+            <p class="mb-0">
+              <a class="link-opacity-100-hover" href="mailto:subhankhan21102005@gmail.com" target="_blank">
+                Email
+              </a>
+            </p>
+          </div>
         </div>
       </div>
 
