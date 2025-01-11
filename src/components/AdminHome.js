@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const AdminHome = (props) => {
     const [title, setTitle] = useState('');
+    const fileInputRef = useRef(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const handleChange = (e) => {
         const { value } = e.target;
@@ -10,7 +12,7 @@ const AdminHome = (props) => {
 
     const handleCreatePost = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
-        const formData = { title }; // Create the form data object
+        const formData = { image, title }; // Create the form data object
 
         try {
             const response = await fetch('http://localhost:5000/api/post/createpost', {
@@ -35,6 +37,19 @@ const AdminHome = (props) => {
         }
     };
 
+    const [image, setImage] = useState(null);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        console.log(file)
+        if (file) {
+            const fileName = file.name;  // Get the original file name
+            setImage(fileName);
+            const imageURL = URL.createObjectURL(file);  
+            setImagePreview(imageURL);
+        }
+    };
+
     return (
         <>
             <h1 className='container d-flex justify-content-center align-items-center my-5'>Admin Panel</h1>
@@ -47,11 +62,26 @@ const AdminHome = (props) => {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Post</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
+                                    setImage(null);
+                                    fileInputRef.current.value = "";
+                                }}></button>
                             </div>
                             <form onSubmit={handleCreatePost}>
                                 <div className="modal-body">
-                                    <div className="mb-3">
+                                    <input
+                                        type="file"
+                                        id="fileInput"
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        ref={fileInputRef}
+                                    />
+                                    {image && (
+                                        <div class="card mt-3">
+                                            <img src={imagePreview} class="card-img-top" />
+                                        </div>
+                                    )}
+                                    <div className="mb-3 my-3">
                                         <label htmlFor="title" className="form-label">Title</label>
                                         <input
                                             type="text"
@@ -62,10 +92,13 @@ const AdminHome = (props) => {
                                             required
                                         />
                                     </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Add Post</button> {/* Change type to "submit" */}
-                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => {
+                                        setImage(null);
+                                        fileInputRef.current.value = "";
+                                    }}>Close</button>
+                                    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Add Post</button> {/* Change type to "submit" */}
                                 </div>
                             </form>
                         </div>

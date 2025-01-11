@@ -6,14 +6,15 @@ const router = express.Router();
 
 // POST route to create a new post
 router.post('/createpost', async (req, res) => {
-  const { title } = req.body;
+  const { image, title } = req.body;
 
-  if (!title) {
+  if (!image || !title) {
     return res.status(400).json({ error: 'Title is required' });
   }
 
   // Create a new post object
   const newPost = new Post({
+    image,
     title // Assuming comments is an array (empty or with existing comments)
   });
 
