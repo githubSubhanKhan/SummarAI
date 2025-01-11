@@ -47,7 +47,6 @@ const PostItem = () => {
 
     return (
         <div>
-
             {posts.map((post) => (
                 <div key={post._id} className="card my-2" style={{ width: "30rem" }}>
                     <img src={`/images/${post.image}`} class="card-img-top"></img>

@@ -38,7 +38,6 @@ const Navbar = (props) => {
     }
 
     const isLoggedIn = location.pathname === '/home'
-
     const onLoginPage = location.pathname === '/login'
     const onSignupPage = location.pathname === '/signup'
     const onAdminPage = location.pathname === '/adminhome'
@@ -66,14 +65,14 @@ const Navbar = (props) => {
                             </ul>
                         }
                         <div className="d-flex ms-auto">
-                            {isLoggedIn || onAdminPage && (
+                            {(isLoggedIn || onAdminPage) && 
                                 <button
                                     className="btn btn-outline-primary"
                                     type="button"
                                     onClick={handleLogout}>
                                     Logout
                                 </button>
-                            )}
+                            }
                             {isHomePage && (
                                 <button
                                     className="btn btn-outline-primary"
