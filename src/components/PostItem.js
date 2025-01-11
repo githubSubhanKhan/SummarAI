@@ -12,7 +12,7 @@ const PostItem = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/post/fetchposts');
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/fetchposts`);
                 const data = await response.json();
                 setPosts(data.posts || []);  // Ensure data.posts is an array
                 setLoading(false);
@@ -28,7 +28,7 @@ const PostItem = () => {
     const handleCommentAdded = (postId) => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/post/${postId}/getcomments`);
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/${postId}/getcomments`);
                 const data = await response.json();
                 setPosts((prevPosts) =>
                     prevPosts.map((post) =>
@@ -53,7 +53,7 @@ const PostItem = () => {
                 return;
             }
 
-            const response = await fetch(`http://localhost:5000/api/post/${postId}/like`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/${postId}/like`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const PostItem = () => {
         <div>
             {posts.map((post) => (
                 <div key={post._id} className="card mb-5" style={{ width: "30rem" }}>
-                    <img src={`/images/${post.image}`} class="card-img-top"></img>
+                    <img src={`/images/${post.image}`} className="card-img-top" alt=''/>
                     <div className='container my-2'>
                         <p className="card-text">{post.title}</p>
                     </div>
@@ -102,12 +102,12 @@ const PostItem = () => {
                             className="btn custom-btn"
                             onClick={() => handleLikeClick(post._id)}
                         >
-                            <i class="fa-solid fa-thumbs-up mx-2"></i>
+                            <i className="fa-solid fa-thumbs-up mx-2"></i>
                             Like ({post.likes || 0})
                         </button>
 
                         <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
-                            <i class="fa-solid fa-comment mx-2"></i>
+                            <i className="fa-solid fa-comment mx-2"></i>
                             Comments
                         </button>
                         <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">

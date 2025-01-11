@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Welcome = () => {
   return (
     <>
-        <h1 className='container d-flex justify-content-center align-items-center my-5'>Welcome To Postify</h1>
+        <h1 className='container d-flex justify-content-center align-items-center my-5'>Welcome To SummarAI</h1>
       <div className='container d-flex justify-content-center align-items-center my-5'>
         <Link to="/signup">
           <button className="btn btn-primary mx-5">Signup</button>

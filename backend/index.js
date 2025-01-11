@@ -1,9 +1,9 @@
 const express = require('express');
 const connectToMongo = require('./config/db'); // Adjust path to your db.js file
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
 
 // Connect to MongoDB
 connectToMongo();
@@ -25,6 +25,6 @@ app.use((req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on ${process.env.BACKEND_URL+process.env.PORT}`);
 });

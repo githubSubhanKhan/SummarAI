@@ -2,7 +2,7 @@ const Cerebras = require('@cerebras/cerebras_cloud_sdk');
 
 // Initialize the Cerebras client
 const client = new Cerebras({
-  apiKey: 'csk-t32h64ctdeec99d9jfkmkm33mhdxpdhhd3t4defvthc95ye8', // Replace with your API key
+  apiKey: process.env.API_KEY,
 });
 
 // Function to summarize comments

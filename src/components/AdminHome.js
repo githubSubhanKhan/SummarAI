@@ -15,7 +15,7 @@ const AdminHome = (props) => {
         const formData = { image, title }; // Create the form data object
 
         try {
-            const response = await fetch('http://localhost:5000/api/post/createpost', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/createpost`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

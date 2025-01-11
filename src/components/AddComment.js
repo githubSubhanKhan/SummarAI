@@ -55,7 +55,7 @@ const AddComment = ({ postId, onCommentAdded }) => {
 
         try {
             // Make a POST request to the backend to add the comment
-            const response = await fetch(`http://localhost:5000/api/post/${postId}/addcomment`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/${postId}/addcomment`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const SummaryComment = ({ postId }) => {
     const fetchSummary = async () => {
         try {
             // Use fetch to call the backend API
-            const response = await fetch(`http://localhost:5000/api/post//${postId}/getsummarizedcomments`);
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}post/${postId}/getsummarizedcomments`);
 
             if (!response.ok) {
                 throw new Error('Failed to fetch summary');
