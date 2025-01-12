@@ -64,7 +64,6 @@ const AddComment = ({ postId, onCommentAdded }) => {
             });
 
             if (response.ok) {
-                const data = await response.json();
                 setSuccess("Comment added successfully!");
                 setComment(""); // Clear the input field
 
