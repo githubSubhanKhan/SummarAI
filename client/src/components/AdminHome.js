@@ -29,6 +29,7 @@ const AdminHome = (props) => {
                 console.log(data)
                 // Optionally, you can reset the form or perform other actions here
                 setTitle(''); // Reset title after successful post creation
+                setImagePreview(null);
                 props.showAlert("Post created successfully!", "success");
             }
         } catch (err) {
