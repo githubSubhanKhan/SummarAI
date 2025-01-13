@@ -24,6 +24,10 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+app.use('/', (req, res) => {
+  res.send('server is working');
+});
+
 // Start the server
 app.listen(process.env.PORT, () => {
   console.log(`Server running on ${process.env.BACKEND_URL+process.env.PORT}`);
