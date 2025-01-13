@@ -19,11 +19,6 @@ app.use('/api/auth', userRoutes); // Prefix routes with '/api'
 const postRoutes = require('./routes/post')
 app.use('/api/post', postRoutes); // Prefix routes with '/api'
 
-// Default route for undefined endpoints
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
-
 app.use('/', (req, res) => {
   res.send('server is working');
 });
