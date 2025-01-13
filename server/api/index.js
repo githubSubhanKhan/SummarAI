@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use(cors());
 
+
 // Import routes
 const userRoutes = require('./routes/auth'); // Adjust path to your route file
 app.use('/api/auth', userRoutes); // Prefix routes with '/api'
