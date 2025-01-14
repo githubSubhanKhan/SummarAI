@@ -49,7 +49,7 @@ const PostItem = () => {
 
             // Check if the user has already liked the post (by username)
             if (likedPosts[postId] && likedPosts[postId] === username) {
-                console.log('Post already liked by this user');
+                // console.log('Post already liked by this user');
                 return;
             }
 

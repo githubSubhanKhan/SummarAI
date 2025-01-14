@@ -22,7 +22,7 @@ const Admin = (props) => {
     
           if (response.ok) {
             props.showAlert("Admin login successfully!", "success");
-            console.log(data);
+            // console.log(data);
             setTimeout(() => {
               navigate('/adminhome'); // Redirect to home page after successful signup
             }, 2000);

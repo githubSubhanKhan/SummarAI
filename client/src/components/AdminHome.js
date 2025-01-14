@@ -26,7 +26,7 @@ const AdminHome = (props) => {
             // You can handle the response here if needed, but no messages will be shown
             const data = await response.json();
             if (response.ok) {
-                console.log(data)
+                // console.log(data)
                 // Optionally, you can reset the form or perform other actions here
                 setTitle(''); // Reset title after successful post creation
                 setImagePreview(null);
@@ -42,7 +42,7 @@ const AdminHome = (props) => {
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
-        console.log(file)
+        // console.log(file)
         if (file) {
             const fileName = file.name;  // Get the original file name
             setImage(fileName);

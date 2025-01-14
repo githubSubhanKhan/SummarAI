@@ -33,7 +33,7 @@ const Signup = (props) => {
 
       if (response.ok) {
         props.showAlert("User registered successfully!", "success");
-        console.log(data);
+        // console.log(data);
         setTimeout(() => {
           navigate('/login'); // Redirect to login page after successful signup
         }, 2000);
