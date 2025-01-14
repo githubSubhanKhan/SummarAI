@@ -18,14 +18,12 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-
 app.use(cors(corsOptions));
-
 
 // Import routes
 const userRoutes = require('./routes/auth'); // Adjust path to your route file
 app.use('/api/auth', userRoutes); // Prefix routes with '/api'
-const postRoutes = require('./routes/post')
+const postRoutes = require('./routes/post');
 app.use('/api/post', postRoutes); // Prefix routes with '/api'
 
 app.use('/', (req, res) => {
@@ -34,5 +32,7 @@ app.use('/', (req, res) => {
 
 // Start the server
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on ${process.env.BACKEND_URL + process.env.PORT}`);
+  console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
+
+module.exports = app;
