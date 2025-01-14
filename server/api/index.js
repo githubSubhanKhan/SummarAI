@@ -11,7 +11,15 @@ connectToMongo();
 // Middleware to parse JSON
 app.use(express.json());
 
-app.use(cors());
+// Enable CORS only for your frontend origin
+const corsOptions = {
+  origin: ['http://localhost:3000', 'summar-ai-gamma.vercel.app'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+
+app.use(cors(corsOptions));
 
 
 // Import routes
@@ -26,5 +34,5 @@ app.use('/', (req, res) => {
 
 // Start the server
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on ${process.env.BACKEND_URL+process.env.PORT}`);
+  console.log(`Server running on ${process.env.BACKEND_URL + process.env.PORT}`);
 });
