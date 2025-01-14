@@ -8,6 +8,7 @@ const app = express();
 // Connect to MongoDB
 connectToMongo();
 
+
 // Middleware to parse JSON
 app.use(express.json());
 
