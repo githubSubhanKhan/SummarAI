@@ -91,12 +91,17 @@ const PostItem = () => {
     return (
         <div>
             {posts.map((post) => (
-                <div key={post._id} className="card mb-5" style={{ width: "30rem" }}>
-                    <img src={`/images/${post.image}`} className="card-img-top" alt=''/>
-                    <div className='container my-2'>
+                <div key={post._id} className="card mb-5 mx-auto" style={{ maxWidth: "100%" }}>
+                    <img
+                        src={`/images/${post.image}`}
+                        className="card-img-top"
+                        alt=""
+                        style={{ maxHeight: "300px", objectFit: "cover", width: "100%" }}
+                    />
+                    <div className="container my-2">
                         <p className="card-text">{post.title}</p>
                     </div>
-                    <div className="btn-group" role="group" aria-label="Basic outlined example">
+                    <div className="btn-group w-100" role="group" aria-label="Basic outlined example">
                         <button
                             type="button"
                             className="btn custom-btn"
@@ -105,24 +110,28 @@ const PostItem = () => {
                             <i className="fa-solid fa-thumbs-up mx-2"></i>
                             Like ({post.likes || 0})
                         </button>
-
-                        <button type="button" className="btn custom-btn" data-bs-toggle="modal" data-bs-target={`#staticBackdrop${post._id}`}>
+                        <button
+                            type="button"
+                            className="btn custom-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target={`#staticBackdrop${post._id}`}
+                        >
                             <i className="fa-solid fa-comment mx-2"></i>
                             Comments
                         </button>
-                        <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
-                            <div className="modal-dialog modal-dialog-scrollable">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id={`staticBackdropLabel${post._id}`}>Comments</h5>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <Comments comments={post.comments} />
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
+                    </div>
+                    <div className="modal fade" id={`staticBackdrop${post._id}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={`staticBackdropLabel${post._id}`} aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-scrollable">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id={`staticBackdropLabel${post._id}`}>Comments</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    <Comments comments={post.comments} />
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
