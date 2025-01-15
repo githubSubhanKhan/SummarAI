@@ -20,6 +20,19 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if(formData.username.length<5){
+      props.showAlert("Username must be atleast 5 characters!", "warning");
+      return;
+    } else if(formData.password.length<8){
+      props.showAlert("Password must be atleast 8 characters!", "warning");
+      return;
+    }
+
+    if(formData.password !== formData.confirmPassword){
+      props.showAlert("Password does not match!", "danger");
+      return;
+    }
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}auth/register`, {
         method: 'POST',
